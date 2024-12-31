@@ -4,56 +4,91 @@ const resetButton = document.getElementById('reset-button');
 let cards = [];
 let flippedCards = [];
 let matchedCount = 0;
-const icons = ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏓', '🎱'];
-const thinkingEmoji = '🤔'; // Unicode for thinking face emoji
+const icons = ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏓', '🎱', '👽','👻','🤖', '🧠','🫀', '🧿', '🔮', '🪄', '🎁', '🎈', '🎉'];
+const thinkingEmoji = '🤔';
 
+const difficultySettings = {
+    easy: {
+        pairs: 4,
+        timer: 0,
+        matrix: 4
+    },
+    medium: {
+        pairs: 8,
+        timer: 60,
+        matrix: 5
+    },
+    hard: {
+        pairs: 18,
+        timer: 45,
+        matrix: 6
+    },
+    impossible: {
+        pairs: 32,
+        timer: 30,
+        matrix: 8
+    }
+};
+// Get selected difficulty from local storage or set default
+let currentDifficulty = localStorage.getItem('selectedDifficulty') || 'easy';
+let timeLeft = 0;
+let timerInterval;
 
 function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [array[i], array[j]] = [array[j], array[i]];
-  }
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
 }
 
 function createCard(icon, index) {
-  const card = document.createElement('div');
-  card.classList.add('card');
-  card.dataset.index = index;
-  card.dataset.icon = icon;
-    card.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`; // Insert thinking emoji placeholder
-  card.addEventListener('click', handleCardClick);
-  return card;
+    const card = document.createElement('div');
+    card.classList.add('card');
+    card.dataset.index = index;
+    card.dataset.icon = icon;
+    card.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`;
+    card.addEventListener('click', handleCardClick);
+    return card;
 }
 
-function generateCards(){
-    const duplicatedIcons = [...icons, ...icons];
+function generateCards() {
+    const currentSettings = difficultySettings[currentDifficulty];
+    const numPairs = currentSettings.pairs;
+    const numColumns = currentSettings.matrix;
+    const selectedIcons = icons.slice(0, numPairs);
+    const duplicatedIcons = [...selectedIcons, ...selectedIcons];
     shuffleArray(duplicatedIcons);
 
-     duplicatedIcons.forEach((icon, index) => {
+    gameBoard.style.gridTemplateColumns = `repeat(${numColumns}, 100px)`;
+    duplicatedIcons.forEach((icon, index) => {
         const card = createCard(icon, index);
         gameBoard.appendChild(card);
         cards.push(card);
     });
+
+
+    timeLeft = currentSettings.timer;
+    startTimer();
 }
 
 function handleCardClick(e) {
-    const card = e.currentTarget; // Use currentTarget
+    const card = e.currentTarget;
     if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) {
         return;
     }
 
-    card.innerHTML = `<span class="card-icon">${card.dataset.icon}</span>`;// Show card icon
+    card.innerHTML = `<span class="card-icon">${card.dataset.icon}</span>`;
     card.classList.add('flipped');
     flippedCards.push(card);
 
     if (flippedCards.length === 2) {
-    setTimeout(checkMatch, 500);
-  }
+        setTimeout(checkMatch, 500);
+    }
 }
 
 function checkMatch() {
-  const card1 = flippedCards[0];
-  const card2 = flippedCards[1];
+    const card1 = flippedCards[0];
+    const card2 = flippedCards[1];
 
     if (card1.dataset.icon === card2.dataset.icon) {
         card1.classList.add('matched');
@@ -61,15 +96,15 @@ function checkMatch() {
         matchedCount += 2;
         if(matchedCount === cards.length) {
             message.textContent = 'You win!';
+            clearInterval(timerInterval);
         }
-
     } else {
         card1.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`;
         card2.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`;
         card1.classList.remove('flipped');
         card2.classList.remove('flipped');
     }
-  flippedCards = [];
+    flippedCards = [];
 }
 
 function resetGame() {
@@ -78,8 +113,25 @@ function resetGame() {
     flippedCards = [];
     matchedCount = 0;
     message.textContent = '';
+    clearInterval(timerInterval);
     generateCards();
 }
 
+function startTimer() {
+    if (timeLeft <= 0) return;
+    timerInterval = setInterval(function () {
+        if (timeLeft > 0) {
+            timeLeft--;
+            message.textContent = `Time left: ${timeLeft} seconds`;
+        } else {
+            clearInterval(timerInterval);
+            message.textContent = 'Time is up. Game Over!'
+             cards.forEach(card => {
+            card.innerHTML = `<span class="card-icon">${card.dataset.icon}</span>`;
+            card.classList.add('flipped');
+             })
+        }
+    }, 1000);
+}
 generateCards();
 resetButton.addEventListener('click', resetGame);
