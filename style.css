@@ -12,16 +12,32 @@ body {
     text-align: center;
 }
 
+#difficulty-selector {
+    margin-bottom: 15px;
+}
+
+#difficulty-selector button {
+    padding: 8px 12px;
+    margin: 0 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+#difficulty-selector button:hover {
+    background-color: #f0f0f0;
+}
+
 #game-board {
     display: grid;
-    grid-template-columns: repeat(4, 100px);
     grid-gap: 10px;
     margin: 20px auto;
     background-color: #E0FFFF;
     padding: 10px;
     border-radius: 5px;
 }
-
 
 .card {
     width: 100px;
@@ -38,30 +54,30 @@ body {
 }
 
 .card.flipped {
-  transform: rotateY(180deg);
-  background-color: #eee;
+    transform: rotateY(180deg);
+    background-color: #eee;
 }
 
 .card.matched {
-   background-color: #8f8;
-   border-color: #8f8;
-   pointer-events: none;
+    background-color: #8f8;
+    border-color: #8f8;
+    pointer-events: none;
 }
 
 #message {
     margin-bottom: 10px;
     font-weight: bold;
+    min-height: 1.5em;
 }
 
 .card-placeholder {
-    color: #0000FF; /* Blue color for the emoji */
-    font-size: 1.5em; /* Reduced font-size */
+    color: #0000FF;
+    font-size: 1.5em;
     line-height: 1;
-    display: inline-block; /* Ensure proper vertical alignment */
-    transform: translateY(2px); /* Align the emoji a bit better */
+    display: inline-block;
+    transform: translateY(2px);
 }
 
-
 .card-icon {
-  font-size: 2em;
+    font-size: 2em;
 }
