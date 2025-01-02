@@ -1,10 +1,10 @@
-  // Get selected difficulty from local storage or set default
-  let currentDifficulty = localStorage.getItem('selectedDifficulty') || 'easy';
-  let timeLeft = 0;
-  let timerInterval;
+// Get selected difficulty from local storage or set default
+let currentDifficulty = localStorage.getItem('selectedDifficulty') || 'easy';
+let timeLeft = 0;
+let timerInterval;
 
 
-    function generateCards() {
+function generateCards() {
         const currentSettings = difficultySettings[currentDifficulty];
         const numPairs = currentSettings.pairs;
         const numColumns = currentSettings.matrix;
@@ -24,20 +24,23 @@
         startTimer();
     }
 
+
     function handleCardClick(e) {
-        const card = e.currentTarget;
-        if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) {
-            return;
+            const card = e.currentTarget;
+            if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) {
+              return;
+            }
+
+           card.innerHTML = `<span class="card-icon">${card.dataset.icon}</span>`;
+            card.classList.add('flipped');
+            flippedCards.push(card);
+
+            if (flippedCards.length === 2) {
+                setTimeout(checkMatch, 500);
+            }
         }
 
-        card.innerHTML = `<span class="card-icon">${card.dataset.icon}</span>`;
-        card.classList.add('flipped');
-        flippedCards.push(card);
 
-        if (flippedCards.length === 2) {
-            setTimeout(checkMatch, 500);
-        }
-    }
 
     function checkMatch() {
         const card1 = flippedCards[0];
@@ -81,10 +84,12 @@
                 message.textContent = 'Time is up. Game Over!'
                  cards.forEach(card => {
                 card.innerHTML = `<span class="card-icon">${card.dataset.icon}</span>`;
-                card.classList.add('flipped');
+                 card.classList.add('flipped');
                  })
             }
         }, 1000);
     }
+
+
     generateCards();
     resetButton.addEventListener('click', resetGame);
