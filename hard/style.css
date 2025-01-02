@@ -65,3 +65,47 @@ body {
 .card-icon {
   font-size: 2em;
 }
+
+
+/* mobile responsiveness, decrease the sizes */
+@media (max-width: 600px) {
+    #game-board {
+        grid-template-columns: repeat(6, 50px);
+    }
+    .card {
+        width: 50px;
+        height: 50px;
+        font-size: 1em;
+    }
+    .card-icon {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 400px) {
+    #game-board {
+        grid-template-columns: repeat(6, 40px);
+    }
+    .card {
+        width: 40px;
+        height: 40px;
+        font-size: 0.8em;
+    }
+    .card-icon {
+        font-size: 0.8em;
+    }
+}
+
+@media (max-width: 300px) {
+    #game-board {
+        grid-template-columns: repeat(6, 30px);
+    }
+    .card {
+        width: 30px;
+        height: 30px;
+        font-size: 0.6em;
+    }
+    .card-icon {
+        font-size: 0.6em;
+    }
+}
