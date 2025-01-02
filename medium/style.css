@@ -115,3 +115,18 @@ body {
         font-size: 2.5em;
     }
 }
+
+/* mobile responsiveness, decrease the sizes */
+@media (max-width: 600px) {
+    #game-board {
+        grid-template-columns: repeat(5, 50px);
+    }
+    .card {
+        width: 50px;
+        height: 50px;
+        font-size: 1em;
+    }
+    .card-icon {
+        font-size: 1em;
+    }
+}
