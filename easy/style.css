@@ -14,17 +14,15 @@ body {
 
 #game-board {
     display: grid;
-    grid-template-columns: repeat(4, 100px); /* Keep 4 columns */
+    grid-template-columns: repeat(4, 100px);
     grid-gap: 10px;
     margin: 20px auto;
     background-color: #E0FFFF;
     padding: 10px;
     border-radius: 5px;
-    width: max-content; /* Shrinks to fit content */
-    position: relative; /* Add relative positioning to ensure absolute cards are positioned relative to this container */
+    width: max-content;
 }
 
-/* Default card styles */
 .card {
     width: 100px;
     height: 100px;
@@ -37,7 +35,6 @@ body {
     cursor: pointer;
     user-select: none;
     transition: transform 0.3s ease;
-    position: relative; /* Make sure cards are positioned relative to the grid */
 }
 
 .card.flipped {
@@ -56,41 +53,40 @@ body {
     font-weight: bold;
 }
 
-/* Adjust card styles for emojis */
 .card-placeholder {
-    color: #0000FF; /* Blue color for the emoji */
-    font-size: 1.5em; /* Reduced font-size */
+    color: #0000FF;
+    font-size: 1.5em;
     line-height: 1;
-    display: inline-block; /* Ensure proper vertical alignment */
-    transform: translateY(2px); /* Align the emoji a bit better */
+    display: inline-block;
+    transform: translateY(2px);
 }
 
 .card-icon {
     font-size: 2em;
 }
 
-/* Mobile responsiveness */
+/* mobile responsiveness, decrease the sizes */
 @media (max-width: 600px) {
     #game-board {
-        grid-template-columns: repeat(4, 50px); /* Keep 4 columns */
-        grid-gap: 5px; /* Reduce gap between cards */
-        padding: 5px; /* Reduce padding */
+        grid-template-columns: repeat(4, 50px);
+        grid-gap: 5px;
+        padding: 5px;
     }
     .card {
         width: 50px;
         height: 50px;
         font-size: 1em;
     }
-    .card-icon {
-        font-size: 2.5em; /* Increase emoji size */
+     .card-icon {
+        font-size: 2.5em;
     }
 }
 
 @media (max-width: 400px) {
     #game-board {
-        grid-template-columns: repeat(4, 40px); /* Keep 4 columns */
+        grid-template-columns: repeat(4, 40px);
         grid-gap: 5px;
-        padding: 5px;
+         padding: 5px;
     }
     .card {
         width: 40px;
@@ -102,11 +98,12 @@ body {
     }
 }
 
+
 @media (max-width: 300px) {
     #game-board {
-        grid-template-columns: repeat(4, 30px); /* Keep 4 columns */
-        grid-gap: 3px; /* Further reduce the gap */
-        padding: 3px;
+        grid-template-columns: repeat(4, 30px);
+        grid-gap: 3px;
+         padding: 3px;
     }
     .card {
         width: 30px;
@@ -116,11 +113,4 @@ body {
     .card-icon {
         font-size: 2.5em;
     }
-}
-
-/* Add transition and position for the animation when swapping cards */
-.card.switching {
-    transition: all 0.5s ease; /* Smooth transition for both movement and other properties */
-    position: absolute; /* Position the card absolutely when switching */
-    z-index: 1; /* Bring the card to the front during movement */
 }
