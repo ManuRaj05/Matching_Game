@@ -20,6 +20,7 @@ body {
     background-color: #E0FFFF;
     padding: 10px;
     border-radius: 5px;
+    width: max-content;
 }
 
 
@@ -71,6 +72,8 @@ body {
 @media (max-width: 600px) {
     #game-board {
         grid-template-columns: repeat(6, 50px);
+        grid-gap: 5px; /* Reduce gap between cards */
+        padding: 5px;
     }
     .card {
         width: 50px;
@@ -78,13 +81,15 @@ body {
         font-size: 1em;
     }
     .card-icon {
-        font-size: 1em;
+        font-size: 2.5em;
     }
 }
 
 @media (max-width: 400px) {
     #game-board {
         grid-template-columns: repeat(6, 40px);
+        grid-gap: 5px; /* Reduce gap between cards */
+        padding: 5px;
     }
     .card {
         width: 40px;
@@ -92,13 +97,15 @@ body {
         font-size: 0.8em;
     }
     .card-icon {
-        font-size: 0.8em;
+        font-size: 2.5em;
     }
 }
 
 @media (max-width: 300px) {
     #game-board {
         grid-template-columns: repeat(6, 30px);
+        grid-gap: 5px; /* Reduce gap between cards */
+        padding: 5px;
     }
     .card {
         width: 30px;
@@ -106,6 +113,6 @@ body {
         font-size: 0.6em;
     }
     .card-icon {
-        font-size: 0.6em;
+        font-size: 2.5em;
     }
 }

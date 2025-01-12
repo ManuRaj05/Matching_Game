@@ -20,8 +20,8 @@ body {
     background-color: #E0FFFF;
     padding: 10px;
     border-radius: 5px;
+    width: max-content;
 }
-
 
 .card {
     width: 100px;
@@ -38,14 +38,14 @@ body {
 }
 
 .card.flipped {
-  transform: rotateY(180deg);
-  background-color: #eee;
+    transform: rotateY(180deg);
+    background-color: #eee;
 }
 
 .card.matched {
-   background-color: #8f8;
-   border-color: #8f8;
-   pointer-events: none;
+    background-color: #8f8;
+    border-color: #8f8;
+    pointer-events: none;
 }
 
 #message {
@@ -54,14 +54,63 @@ body {
 }
 
 .card-placeholder {
-    color: #0000FF; /* Blue color for the emoji */
-    font-size: 1.5em; /* Reduced font-size */
+    color: #0000FF;
+    font-size: 1.5em;
     line-height: 1;
-    display: inline-block; /* Ensure proper vertical alignment */
-    transform: translateY(2px); /* Align the emoji a bit better */
+    display: inline-block;
+    transform: translateY(2px);
+}
+
+.card-icon {
+    font-size: 2em;
+}
+
+/* mobile responsiveness, decrease the sizes */
+@media (max-width: 600px) {
+    #game-board {
+        grid-template-columns: repeat(4, 50px);
+        grid-gap: 5px;
+        padding: 5px;
+    }
+    .card {
+        width: 50px;
+        height: 50px;
+        font-size: 1em;
+    }
+     .card-icon {
+        font-size: 2.5em;
+    }
+}
+
+@media (max-width: 400px) {
+    #game-board {
+        grid-template-columns: repeat(4, 40px);
+        grid-gap: 5px;
+         padding: 5px;
+    }
+    .card {
+        width: 40px;
+        height: 40px;
+        font-size: 0.8em;
+    }
+    .card-icon {
+        font-size: 2.5em;
+    }
 }
 
 
-.card-icon {
-  font-size: 2em;
+@media (max-width: 300px) {
+    #game-board {
+        grid-template-columns: repeat(4, 30px);
+        grid-gap: 3px;
+         padding: 3px;
+    }
+    .card {
+        width: 30px;
+        height: 30px;
+        font-size: 0.6em;
+    }
+    .card-icon {
+        font-size: 2.5em;
+    }
 }
