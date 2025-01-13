@@ -10,6 +10,20 @@ body {
 
 .container {
     text-align: center;
+    width: 100%;
+    max-width: 500px;
+}
+
+#stats {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+}
+
+#timer, #attempts, #progress {
+    font-weight: bold;
+    color: #007BFF;
 }
 
 #game-board {
@@ -65,20 +79,28 @@ body {
     font-size: 2em;
 }
 
-/* mobile responsiveness, decrease the sizes */
+/* Mobile responsiveness: decrease the sizes */
 @media (max-width: 600px) {
     #game-board {
         grid-template-columns: repeat(4, 50px);
         grid-gap: 5px;
         padding: 5px;
     }
+
     .card {
         width: 50px;
         height: 50px;
         font-size: 1em;
     }
-     .card-icon {
+
+    .card-icon {
         font-size: 2.5em;
+    }
+
+    #stats {
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
     }
 }
 
@@ -86,30 +108,33 @@ body {
     #game-board {
         grid-template-columns: repeat(4, 40px);
         grid-gap: 5px;
-         padding: 5px;
+        padding: 5px;
     }
+
     .card {
         width: 40px;
         height: 40px;
         font-size: 0.8em;
     }
+
     .card-icon {
         font-size: 2.5em;
     }
 }
 
-
 @media (max-width: 300px) {
     #game-board {
         grid-template-columns: repeat(4, 30px);
         grid-gap: 3px;
-         padding: 3px;
+        padding: 3px;
     }
+
     .card {
         width: 30px;
         height: 30px;
         font-size: 0.6em;
     }
+
     .card-icon {
         font-size: 2.5em;
     }

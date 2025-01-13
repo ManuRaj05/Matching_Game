@@ -3,6 +3,7 @@ const message = document.getElementById('message');
 const resetButton = document.getElementById('reset-button');
 const timerElement = document.getElementById('timer');
 const attemptsElement = document.getElementById('attempts');
+const progressElement = document.getElementById('progress'); 
 let cards = [];
 let flippedCards = [];
 let matchedCount = 0;
@@ -126,6 +127,10 @@ function checkMatch() {
     flippedCards = [];
 }
 
+function updateProgress() {
+    progressElement.textContent = `Solved: ${solvedPairs}/${totalPairs} Pairs`;
+}
+
 function resetGame() {
     gameBoard.innerHTML = '';
     cards = [];
@@ -134,7 +139,8 @@ function resetGame() {
     attempts = 0;
     timeElapsed = 0; // Reset the timer
     timerElement.textContent = `Time: 0m 0s`; // Update the timer display
-    attemptsElement.textContent = `Attempts: ${attempts}`; // Update the attempts display
+    attemptsElement.textContent = `Attempts: ${attempts}`; 
+    progressElement.textContent = `Solved: 0/${totalPairs} Pairs`;
     message.textContent = '';
     isAnimating = false;
     timerRunning = false; // Reset the timer running flag
