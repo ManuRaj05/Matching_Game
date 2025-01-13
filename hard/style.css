@@ -29,7 +29,7 @@ body {
 
 #game-board {
   display: grid;
-  grid-template-columns: repeat(5, 80px);
+  grid-template-columns: repeat(6, 80px);
   grid-gap: 10px;
   margin: 20px auto;
   background-color: #E0FFFF;
@@ -77,7 +77,7 @@ body {
 /* Responsive Design */
 @media (max-width: 600px) {
   #game-board {
-    grid-template-columns: repeat(5, 50px);
+    grid-template-columns: repeat(6, 50px);
     grid-gap: 5px;
     padding: 5px;
   }
@@ -93,7 +93,7 @@ body {
 
 @media (max-width: 400px) {
   #game-board {
-    grid-template-columns: repeat(5, 40px);
+    grid-template-columns: repeat(6, 40px);
     grid-gap: 5px;
     padding: 5px;
   }
@@ -109,7 +109,7 @@ body {
 
 @media (max-width: 300px) {
   #game-board {
-    grid-template-columns: repeat(5, 30px);
+    grid-template-columns: repeat(6, 30px);
     grid-gap: 3px;
     padding: 3px;
   }

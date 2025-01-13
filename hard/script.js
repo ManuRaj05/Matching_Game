@@ -10,9 +10,7 @@ let matchedCount = 0;
 let attempts = 0;
 let timer = null;
 let startTime = null;
-const icons = [
-  '⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏓', '🎱', '🍥', '🏏'
-];
+const icons = ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏓', '🎱','🍥','🏏','🥍','🎳', '🎯', '🎮', '🎰', '🎲', '🃏', '🀄'];
 const thinkingEmoji = '🤔';
 
 function shuffleArray(array) {

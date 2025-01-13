@@ -3,6 +3,7 @@ const message = document.getElementById('message');
 const resetButton = document.getElementById('reset-button');
 const timerElement = document.getElementById('timer'); // Timer element
 const attemptsElement = document.getElementById('attempts'); // Attempts element
+const progressElement = document.getElementById('progress'); // Progress element
 
 let cards = [];
 let flippedCards = [];
@@ -78,7 +79,7 @@ function stopTimer() {
 function updateTimerDisplay() {
     const minutes = Math.floor(timeElapsed / 60);
     const seconds = timeElapsed % 60;
-    timerElement.textContent = `Time: ${minutes}m ${seconds}s`;
+    timerElement.textContent = `Time: ${minutes}m ${seconds}s`; // Update timer display
 }
 
 function checkMatch() {
@@ -89,6 +90,11 @@ function checkMatch() {
         card1.classList.add('matched');
         card2.classList.add('matched');
         matchedCount += 2;
+
+        // Update progress display
+        const totalPairs = icons.length;
+        const solvedPairs = matchedCount / 2;
+        progressElement.textContent = `Solved: ${solvedPairs}/${totalPairs} Pairs`;
 
         if (matchedCount === cards.length) {
             message.textContent = 'You win!';
@@ -116,6 +122,7 @@ function resetGame() {
     stopTimer(); // Stop any running timer
     timerElement.textContent = `Time: 0m 0s`; // Reset timer display
     attemptsElement.textContent = `Attempts: 0`; // Reset attempts display
+    progressElement.textContent = `Solved: 0/8 Pairs`; // Reset progress display
     generateCards();
 }
 
