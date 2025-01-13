@@ -10,25 +10,11 @@ body {
 
 .container {
     text-align: center;
-    width: 100%;
-    max-width: 500px;
-}
-
-#stats {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-    font-size: 1.2em;
-}
-
-#timer, #attempts, #progress {
-    font-weight: bold;
-    color: #007BFF;
 }
 
 #game-board {
     display: grid;
-    grid-template-columns: repeat(4, 100px);
+    grid-template-columns: repeat(6, 100px);
     grid-gap: 10px;
     margin: 20px auto;
     background-color: #E0FFFF;
@@ -36,6 +22,7 @@ body {
     border-radius: 5px;
     width: max-content;
 }
+
 
 .card {
     width: 100px;
@@ -52,14 +39,14 @@ body {
 }
 
 .card.flipped {
-    transform: rotateY(180deg);
-    background-color: #eee;
+  transform: rotateY(180deg);
+  background-color: #eee;
 }
 
 .card.matched {
-    background-color: #8f8;
-    border-color: #8f8;
-    pointer-events: none;
+   background-color: #8f8;
+   border-color: #8f8;
+   pointer-events: none;
 }
 
 #message {
@@ -68,55 +55,47 @@ body {
 }
 
 .card-placeholder {
-    color: #0000FF;
-    font-size: 1.5em;
+    color: #0000FF; /* Blue color for the emoji */
+    font-size: 1.5em; /* Reduced font-size */
     line-height: 1;
-    display: inline-block;
-    transform: translateY(2px);
+    display: inline-block; /* Ensure proper vertical alignment */
+    transform: translateY(2px); /* Align the emoji a bit better */
 }
+
 
 .card-icon {
-    font-size: 2em;
+  font-size: 2em;
 }
 
-/* Mobile responsiveness: decrease the sizes */
+
+/* mobile responsiveness, decrease the sizes */
 @media (max-width: 600px) {
     #game-board {
-        grid-template-columns: repeat(4, 50px);
-        grid-gap: 5px;
+        grid-template-columns: repeat(6, 50px);
+        grid-gap: 5px; /* Reduce gap between cards */
         padding: 5px;
     }
-
     .card {
         width: 50px;
         height: 50px;
         font-size: 1em;
     }
-
     .card-icon {
         font-size: 2.5em;
-    }
-
-    #stats {
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
     }
 }
 
 @media (max-width: 400px) {
     #game-board {
-        grid-template-columns: repeat(4, 40px);
-        grid-gap: 5px;
+        grid-template-columns: repeat(6, 40px);
+        grid-gap: 5px; /* Reduce gap between cards */
         padding: 5px;
     }
-
     .card {
         width: 40px;
         height: 40px;
         font-size: 0.8em;
     }
-
     .card-icon {
         font-size: 2.5em;
     }
@@ -124,17 +103,15 @@ body {
 
 @media (max-width: 300px) {
     #game-board {
-        grid-template-columns: repeat(4, 30px);
-        grid-gap: 3px;
-        padding: 3px;
+        grid-template-columns: repeat(6, 30px);
+        grid-gap: 5px; /* Reduce gap between cards */
+        padding: 5px;
     }
-
     .card {
         width: 30px;
         height: 30px;
         font-size: 0.6em;
     }
-
     .card-icon {
         font-size: 2.5em;
     }

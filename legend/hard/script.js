@@ -1,18 +1,18 @@
 const gameBoard = document.getElementById('game-board');
 const message = document.getElementById('message');
 const resetButton = document.getElementById('reset-button');
-const timerElement = document.getElementById('timer'); // Timer element
-const attemptsElement = document.getElementById('attempts'); // Attempts element
-
+const timerElement = document.getElementById('timer');
+const attemptsElement = document.getElementById('attempts');
 let cards = [];
 let flippedCards = [];
 let matchedCount = 0;
+let isAnimating = false;
 let attempts = 0;
 let timerInterval;
-let timeElapsed = 0; // Tracks time in seconds
-let timerRunning = false; // Flag to check if timer has started
-const icons = ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏓', '🎱'];
-const thinkingEmoji = '🤔'; // Unicode for thinking face emoji
+let timeElapsed = 0; // Time tracker in seconds
+let timerRunning = false; // Flag to check if timer is already running
+const icons = ['⚽', '🏀', '🏈', '⚾', '🎾', '🏐', '🏓', '🎱','🍥','🏏','🥍','🎳', '🎯', '🎮', '🎰', '🎲', '🃏', '🀄'];
+const thinkingEmoji = '🤔';
 
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
@@ -26,7 +26,7 @@ function createCard(icon, index) {
     card.classList.add('card');
     card.dataset.index = index;
     card.dataset.icon = icon;
-    card.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`; // Insert thinking emoji placeholder
+    card.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`;
     card.addEventListener('click', handleCardClick);
     return card;
 }
@@ -43,22 +43,25 @@ function generateCards() {
 }
 
 function handleCardClick(e) {
-    const card = e.currentTarget; // Use currentTarget
+    if (isAnimating) return;
+    const card = e.currentTarget;
     if (card.classList.contains('flipped') || card.classList.contains('matched') || flippedCards.length >= 2) {
         return;
     }
 
-    card.innerHTML = `<span class="card-icon">${card.dataset.icon}</span>`; // Show card icon
+    const cardIcon = document.createElement('span');
+    cardIcon.classList.add('card-icon');
+    cardIcon.textContent = card.dataset.icon;
+    card.innerHTML = '';
+    card.appendChild(cardIcon);
     card.classList.add('flipped');
     flippedCards.push(card);
 
-    if (!timerRunning) {
-        startTimer(); // Start the timer on the first card flip
+    if (!timerRunning) { // Start the timer when the first card is flipped
+        startTimer();
     }
 
     if (flippedCards.length === 2) {
-        attempts++; // Increment attempts
-        attemptsElement.textContent = `Attempts: ${attempts}`; // Update attempts display
         setTimeout(checkMatch, 500);
     }
 }
@@ -76,14 +79,17 @@ function stopTimer() {
 }
 
 function updateTimerDisplay() {
-    const minutes = Math.floor(timeElapsed / 60);
-    const seconds = timeElapsed % 60;
-    timerElement.textContent = `Time: ${minutes}m ${seconds}s`;
+    const minutes = Math.floor(timeElapsed / 60); // Get the number of minutes
+    const seconds = timeElapsed % 60; // Get the remaining seconds
+    timerElement.textContent = `Time: ${minutes}m ${seconds}s`; // Update timer display
 }
 
 function checkMatch() {
     const card1 = flippedCards[0];
     const card2 = flippedCards[1];
+
+    attempts++;
+    attemptsElement.textContent = `Attempts: ${attempts}`;
 
     if (card1.dataset.icon === card2.dataset.icon) {
         card1.classList.add('matched');
@@ -95,10 +101,26 @@ function checkMatch() {
             stopTimer(); // Stop the timer when the game is won
         }
     } else {
-        card1.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`;
-        card2.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`;
-        card1.classList.remove('flipped');
-        card2.classList.remove('flipped');
+        isAnimating = true;
+
+        const card1Index = cards.indexOf(card1);
+        const card2Index = cards.indexOf(card2);
+
+        [cards[card1Index], cards[card2Index]] = [cards[card2Index], cards[card1Index]];
+
+        const temp = document.createElement('div');
+        gameBoard.insertBefore(temp, card1);
+        gameBoard.insertBefore(card1, card2.nextElementSibling);
+        gameBoard.insertBefore(card2, temp);
+        temp.remove();
+
+        setTimeout(() => {
+            card1.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`;
+            card2.innerHTML = `<span class="card-placeholder">${thinkingEmoji}</span>`;
+            card1.classList.remove('flipped');
+            card2.classList.remove('flipped');
+            isAnimating = false;
+        }, 1000);
     }
 
     flippedCards = [];
@@ -110,12 +132,12 @@ function resetGame() {
     flippedCards = [];
     matchedCount = 0;
     attempts = 0;
-    timeElapsed = 0;
+    timeElapsed = 0; // Reset the timer
+    timerElement.textContent = `Time: 0m 0s`; // Update the timer display
+    attemptsElement.textContent = `Attempts: ${attempts}`; // Update the attempts display
     message.textContent = '';
-    timerRunning = false; // Reset timer running flag
-    stopTimer(); // Stop any running timer
-    timerElement.textContent = `Time: 0m 0s`; // Reset timer display
-    attemptsElement.textContent = `Attempts: 0`; // Reset attempts display
+    isAnimating = false;
+    timerRunning = false; // Reset the timer running flag
     generateCards();
 }
 
